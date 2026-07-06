@@ -16,5 +16,5 @@ router
     roleCheck(["admin"]),
     AuthController.register,
   );
-  
+router.route("/logout").post(AuthController.logout);
 export const AuthRoute = router;

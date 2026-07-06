@@ -62,5 +62,14 @@ class AuthController {
       data: result,
     });
   }
+  public static async logout(req: Request, res: Response) {
+    res.clearCookie("at");
+    return sendResponse({
+      res,
+      statusCode: httpStatus.OK,
+      message: "Logout successful",
+      data: null,
+    });
+  }
 }
 export default AuthController;
