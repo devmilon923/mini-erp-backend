@@ -36,12 +36,13 @@ class AuthController {
       sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
       maxAge: 24 * 1 * 60 * 60 * 1000, // 1 days
     });
-
+    const userObj = (user as any).toObject ? (user as any).toObject() : (user as any);
+    delete userObj.password;
     return sendResponse({
       res,
       statusCode: httpStatus.OK,
       message: "Login successful",
-      data: user,
+      data: userObj,
     });
   }
   public static async register(req: Request, res: Response) {
