@@ -21,7 +21,6 @@ export const registerValidation = z.object({
       "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
     ),
   role: z.enum(["admin", "manager", "employee"]),
-  image: z.url({ message: "Image path is required" }),
-  salt: z.string().optional(),
+  image: z.url({ message: "Image path url is required" }),
 });
 export type TRegister = z.infer<typeof registerValidation>;

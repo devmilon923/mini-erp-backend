@@ -11,7 +11,6 @@ const userSchema = new Schema<TRegister>(
       enum: ["admin", "manager", "employee"],
       required: true,
     },
-    salt: { type: String, required: true, trim: true },
     image: { type: String, required: true, trim: true },
   },
   { timestamps: true },

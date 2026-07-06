@@ -21,22 +21,21 @@ class AuthController {
     });
   }
   public static async register(req: Request, res: Response) {
-    const { email, password, role, image } = req.body;
-    const salt = uuidv4();
-    const hasPassword = bcrypt.hashSync(password, salt);
+    const { email, password, role, image, name } = req.body;
+
+    const hasPassword = bcrypt.hashSync(password, 10);
     const result = await UserModel.create({
       email,
+      name,
       role,
+      image,
       password: hasPassword,
     });
     return sendResponse({
       res,
       statusCode: httpStatus.OK,
-      message: "Login successful",
-      data: {
-        email,
-        role,
-      },
+      message: "Registion successful",
+      data: result,
     });
   }
 }

@@ -1,5 +1,6 @@
 import { ZodError } from "zod";
 import sendResponse from "../utils/sendResponse";
+import { handlerDuplicateError } from "../utils/handleDuplicate";
 
 export default function globalErrorHandler(
   err: any,
@@ -7,15 +8,25 @@ export default function globalErrorHandler(
   res: any,
   next: any,
 ) {
+  console.log(err.code);
   if (err) {
     if (err instanceof ZodError) {
       const statusCode = 400;
-      const message = "Input validation error";
+      const message =
+        "Validation error: " + err.issues.map((e) => e.message).join(", ");
       return sendResponse({
         res,
         statusCode,
         message,
         data: { path: err.issues[0].path },
+      });
+    } else if (err.code === 11000) {
+      const message = handlerDuplicateError(err);
+      return sendResponse({
+        res,
+        statusCode: 409,
+        message,
+        data: null,
       });
     }
     const statusCode = err.statusCode || 500;
@@ -25,10 +36,7 @@ export default function globalErrorHandler(
       res,
       statusCode,
       message,
-      data: {
-        success: false,
-        message,
-      },
+      data: null,
     });
   }
   return next();

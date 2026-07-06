@@ -5,7 +5,6 @@ import sendResponse from "../utils/sendResponse";
 export const zodValidator =
   (schema: ZodType) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("first");
     try {
       await schema.parseAsync(req.body);
       next();
@@ -14,7 +13,7 @@ export const zodValidator =
         return sendResponse({
           res,
           statusCode: 400,
-          message: "Input validation error",
+          message: "Validation error: " + error.issues.map((e) => e.message).join(", "),
           data: {
             path: error.issues[0].path,
           },
