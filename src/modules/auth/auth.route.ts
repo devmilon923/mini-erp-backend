@@ -9,9 +9,11 @@ const router = Router();
 router
   .route("/login")
   .post(zodValidator(loginValidation), AuthController.login);
-router.route("/register").post(
-  zodValidator(registerValidation),
-  // roleCheck(["admin"]),
-  AuthController.register,
-);
+router
+  .route("/register")
+  .post(
+    zodValidator(registerValidation),
+    roleCheck(["admin"]),
+    AuthController.register,
+  );
 export const AuthRoute = router;

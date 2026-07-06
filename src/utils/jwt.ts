@@ -3,10 +3,11 @@ export type JwtUser = {
   id: string;
   role: "admin" | "manager" | "employee";
 } & jwt.JwtPayload;
-const generateToken = (payload: JwtUser, secret: string) => {
+const secret = process.env.JWT_SECRET || "your-secret-key";
+const generateToken = (payload: JwtUser) => {
   return jwt.sign(payload, secret, { expiresIn: "1d" });
 };
-const verJwtUserToken = (token: string, secret: string) => {
+const verJwtUserToken = (token: string) => {
   return jwt.verify(token, secret) as JwtUser;
 };
 
