@@ -16,4 +16,5 @@ router
     roleCheck(["admin"]),
     AuthController.register,
   );
+  
 export const AuthRoute = router;
