@@ -11,15 +11,24 @@ export const zodValidator =
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        return sendResponse(res, 400, {
-          success: false,
-          path: error.issues[0].path,
+        return sendResponse({
+          res,
+          statusCode: 400,
           message: error.issues.map((issue) => issue.message).join(", "),
+          data: {
+            success: false,
+            path: error.issues[0].path,
+          },
         });
       }
-      return sendResponse(res, 500, {
-        success: false,
+      return sendResponse({
+        res,
+        statusCode: 500,
         message: "Internal Server Error",
+        data: {
+          success: false,
+          message: "Internal Server Error",
+        },
       });
     }
   };

@@ -11,17 +11,27 @@ export default function globalErrorHandler(
     if (err instanceof ZodError) {
       const statusCode = 400;
       const message = err.issues.map((error: any) => error.message).join(", ");
-      return sendResponse(res, statusCode, {
-        success: false,
+      return sendResponse({
+        res,
+        statusCode,
         message,
+        data: {
+          success: false,
+          message,
+        },
       });
     }
     const statusCode = err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    return sendResponse(res, statusCode, {
-      success: false,
+    return sendResponse({
+      res,
+      statusCode,
       message,
+      data: {
+        success: false,
+        message,
+      },
     });
   }
   return next();
