@@ -12,7 +12,7 @@ export default function sendResponse({
   data: any;
 }) {
   res.status(statusCode).json({
-    success: true,
+    success: statusCode >= 200 && statusCode < 300,
     message,
     data,
   });

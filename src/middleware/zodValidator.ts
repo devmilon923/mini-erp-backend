@@ -14,9 +14,8 @@ export const zodValidator =
         return sendResponse({
           res,
           statusCode: 400,
-          message: error.issues.map((issue) => issue.message).join(", "),
+          message: "Input validation error",
           data: {
-            success: false,
             path: error.issues[0].path,
           },
         });

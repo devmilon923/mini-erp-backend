@@ -3,16 +3,18 @@ import { TRegister } from "./validation";
 
 const userSchema = new Schema<TRegister>(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true, trim: true },
     role: {
       type: String,
       enum: ["admin", "manager", "employee"],
       required: true,
     },
+    salt: { type: String, required: true, trim: true },
+    image: { type: String, required: true, trim: true },
   },
   { timestamps: true },
 );
 
-const UserModel = mongoose.model<TRegister>("User", userSchema);
+export const UserModel = mongoose.model<TRegister>("User", userSchema);

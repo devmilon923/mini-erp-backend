@@ -10,7 +10,8 @@ export default function globalErrorHandler(
   if (err) {
     if (err instanceof ZodError) {
       const statusCode = 400;
-      const message = err.issues.map((error: any) => error.message).join(", ");
+      const message =
+        "Validation error: " + err.issues.map((e) => e.message).join(", ");
       return sendResponse({
         res,
         statusCode,
