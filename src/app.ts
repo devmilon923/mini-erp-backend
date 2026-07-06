@@ -4,7 +4,7 @@ import router from "./routes";
 import globalErrorHandler from "./middleware/globalError";
 import cors from "cors";
 dotenv.config();
-
+const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 app.use(
@@ -13,7 +13,7 @@ app.use(
     credentials: true,
   }),
 );
-const PORT = process.env.PORT || 3001;
+
 app.use(router);
 
 app.use(globalErrorHandler);
