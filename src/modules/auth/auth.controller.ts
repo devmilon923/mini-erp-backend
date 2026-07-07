@@ -3,7 +3,6 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import { UserModel } from "./user.model";
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
 import { generateToken } from "../../utils/jwt";
 class AuthController {
   public static async login(req: Request, res: Response) {
@@ -36,7 +35,9 @@ class AuthController {
       sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
       maxAge: 24 * 1 * 60 * 60 * 1000, // 1 days
     });
-    const userObj = (user as any).toObject ? (user as any).toObject() : (user as any);
+    const userObj = (user as any).toObject
+      ? (user as any).toObject()
+      : (user as any);
     delete userObj.password;
     return sendResponse({
       res,
@@ -46,7 +47,7 @@ class AuthController {
     });
   }
   public static async register(req: Request, res: Response) {
-    const { email, password, role, image, name } = req.body;
+    const { email, password, role, image, name, phone = "" } = req.body;
 
     const hasPassword = bcrypt.hashSync(password, 10);
     const result = await UserModel.create({
@@ -54,6 +55,7 @@ class AuthController {
       name,
       role,
       image,
+      phone,
       password: hasPassword,
     });
     return sendResponse({

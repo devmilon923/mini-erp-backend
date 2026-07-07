@@ -21,7 +21,7 @@ async function connectDB() {
     process.exit(1);
   }
 }
-connectDB();
+// connectDB();
 
 app.use(
   cors({

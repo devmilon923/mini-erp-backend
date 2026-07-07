@@ -5,6 +5,7 @@ const userSchema = new Schema<TRegister>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true },
+    phone: { type: String, required: false, default: "" },
     password: { type: String, required: true, trim: true },
     role: {
       type: String,
@@ -12,6 +13,7 @@ const userSchema = new Schema<TRegister>(
       required: true,
     },
     image: { type: String, required: true, trim: true },
+    totalPurchases: { type: Number, required: true, default: 0 },
   },
   { timestamps: true },
 );

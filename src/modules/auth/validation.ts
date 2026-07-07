@@ -14,6 +14,7 @@ export type TLogin = z.infer<typeof loginValidation>;
 export const registerValidation = z.object({
   name: z.string().min(3, "Name is required"),
   email: z.string().min(10, "Email is required"),
+  phone: z.string().optional(),
   password: z
     .string()
     .regex(
@@ -22,5 +23,6 @@ export const registerValidation = z.object({
     ),
   role: z.enum(["admin", "manager", "employee"]),
   image: z.url({ message: "Image path url is required" }),
+  totalPurchases: z.number().optional(),
 });
 export type TRegister = z.infer<typeof registerValidation>;
