@@ -8,14 +8,14 @@ class MediaController {
     try {
       const { fileType, fileName } = req.body as UploadMediaValidation;
       const url = await getUploadURL({ fileName, fileType });
-      sendResponse({
+      return sendResponse({
         res,
         statusCode: 200,
         message: "Upload URL generated successfully",
         data: url,
       });
     } catch (error) {
-      sendResponse({
+      return sendResponse({
         res,
         statusCode: 500,
         message: "Error generating upload URL",

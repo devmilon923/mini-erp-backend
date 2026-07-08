@@ -1,11 +1,13 @@
 import z from "zod";
 
+export enum FileType {
+  PNG = "image/png",
+  JPEG = "image/jpeg",
+  WEBP = "image/webp",
+}
+
 export const uploadMediaValidation = z.object({
-  fileType: z
-    .string()
-    .refine((v) => ["image/png", "image/jpeg", "image/webp"].includes(v), {
-      message: "Invalid file type. Only PNG, JPEG, and WEBP are allowed.",
-    }),
+  fileType: z.enum([FileType.PNG, FileType.JPEG, FileType.WEBP]),
   fileName: z.string().min(2).max(100),
 });
 export type UploadMediaValidation = z.infer<typeof uploadMediaValidation>;
