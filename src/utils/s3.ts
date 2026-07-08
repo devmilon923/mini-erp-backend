@@ -27,5 +27,5 @@ export const getUploadURL = async ({
   // URL expires in 300 seconds (5 minutes)
   const signedUrl = await getSignedUrl(s3client, command, { expiresIn: 300 });
 
-  return signedUrl;
+  return { signedUrl, publicUrl: `${process.env.R2_PUBLIC_URL}${key}` };
 };

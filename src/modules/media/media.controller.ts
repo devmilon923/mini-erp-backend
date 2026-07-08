@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import { getUploadURL } from "../../utils/s3";
 import sendResponse from "../../utils/sendResponse";
+import { UploadMediaValidation } from "./validation";
 
 class MediaController {
   public static async uploadMedia(req: Request, res: Response) {
     try {
-      const { fileType, fileName } = req.body;
+      const { fileType, fileName } = req.body as UploadMediaValidation;
       const url = await getUploadURL({ fileName, fileType });
       sendResponse({
         res,
         statusCode: 200,
         message: "Upload URL generated successfully",
-        data: { url },
+        data: url,
       });
     } catch (error) {
       sendResponse({

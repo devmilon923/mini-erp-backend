@@ -8,3 +8,4 @@ export const uploadMediaValidation = z.object({
     }),
   fileName: z.string().min(2).max(100),
 });
+export type UploadMediaValidation = z.infer<typeof uploadMediaValidation>;
