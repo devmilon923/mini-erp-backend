@@ -6,8 +6,6 @@ class MediaController {
   public static async uploadMedia(req: Request, res: Response) {
     try {
       const { fileType, fileName } = req.body;
-      if (!fileType || !fileName)
-        throw new Error("Invalid request: fileType and fileName are required");
       const url = await getUploadURL({ fileName, fileType });
       sendResponse({
         res,
