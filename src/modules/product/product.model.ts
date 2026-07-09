@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema<TProduct>(
 
 const categorySchema = new mongoose.Schema<TCategory>(
   {
-    name: { type: String },
+    name: { type: String, unique: true, required: true, trim: true,lowercase: true },
   },
   { timestamps: true },
 );
