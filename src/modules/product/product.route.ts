@@ -12,4 +12,11 @@ router
     roleCheck(["admin", "manager"]),
     ProductController.createProduct,
   );
+
+router
+  .route("/")
+  .get(
+    // roleCheck(["admin", "manager"]),
+    ProductController.getAllProducts,
+  );
 export const ProductRouter = router;
