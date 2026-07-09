@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { zodValidator } from "../../middleware/zodValidator";
-import { createProductValidation } from "./validation";
+import { createCategory, createProductValidation } from "./validation";
 import roleCheck from "../../middleware/roleCheck";
 import ProductController from "./product.controller";
 
@@ -15,8 +15,6 @@ router
 
 router
   .route("/")
-  .get(
-    // roleCheck(["admin", "manager"]),
-    ProductController.getAllProducts,
-  );
+  .get(roleCheck(["admin", "manager"]), ProductController.getAllProducts);
+router.route("/category-add").post(zodValidator(createCategory), ProductController.addCategory);
 export const ProductRouter = router;

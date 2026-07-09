@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import sendResponse from "../../utils/sendResponse";
-import { ProductModel } from "./product.model";
+import { CategoryModel, ProductModel } from "./product.model";
 import paginationBuilder from "../../utils/pagination";
 
 class ProductController {
@@ -49,6 +49,19 @@ class ProductController {
         message: "Error retrieving products",
         data: null,
       });
+    }
+  }
+  public static async addCategory(req: Request, res: Response) {
+    try {
+      const result = await CategoryModel.create(req.body);
+      sendResponse({
+        res,
+        statusCode: 201,
+        message: "Category added successfully",
+        data: result,
+      });
+    } catch (error) {
+      throw error;
     }
   }
 }

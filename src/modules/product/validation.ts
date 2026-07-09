@@ -18,6 +18,6 @@ export type TProduct = z.infer<typeof createProductValidation> & Document;
 
 export const createCategory = z.object({
   name: z.string().min(3, { message: "Category name is required" }).trim(),
-  isActive: z.boolean().optional(),
+  status: z.enum(["active", "disabled", "draft"]),
 });
 export type TCategory = z.infer<typeof createCategory> & Document;
